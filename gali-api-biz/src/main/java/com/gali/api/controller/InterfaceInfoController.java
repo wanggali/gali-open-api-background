@@ -3,17 +3,20 @@ package com.gali.api.controller;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.gali.api.annotation.AuthCheck;
+import com.gali.api.client.GaliApiClient;
 import com.gali.api.common.BaseResponse;
 import com.gali.api.common.DeleteRequest;
 import com.gali.api.common.ErrorCode;
 import com.gali.api.common.ResultUtils;
 import com.gali.api.constant.CommonConstant;
 import com.gali.api.exception.BusinessException;
+import com.gali.api.model.dto.interfaceInfo.IdRequest;
 import com.gali.api.model.dto.interfaceInfo.InterfaceInfoAddRequest;
 import com.gali.api.model.dto.interfaceInfo.InterfaceInfoQueryRequest;
 import com.gali.api.model.dto.interfaceInfo.InterfaceInfoUpdateRequest;
 import com.gali.api.model.entity.InterfaceInfo;
 import com.gali.api.model.entity.User;
+import com.gali.api.model.enums.InterfaceInfoStatusEnum;
 import com.gali.api.service.InterfaceInfoService;
 import com.gali.api.service.UserService;
 import lombok.extern.slf4j.Slf4j;
@@ -40,6 +43,9 @@ public class InterfaceInfoController {
 
     @Resource
     private UserService userService;
+
+    @Resource
+    private GaliApiClient galiApiClient;
 
     // region 增删改查
 
@@ -193,5 +199,69 @@ public class InterfaceInfoController {
     }
 
     // endregion
+
+
+    /**
+     * 发布
+     *
+     * @param idRequest
+     * @param request
+     * @return
+     */
+    @PostMapping("/online")
+    @AuthCheck(mustRole = "admin")
+    public BaseResponse<Boolean> onlineInterfaceInfo(@RequestBody IdRequest idRequest,
+                                                     HttpServletRequest request) {
+        if (idRequest == null || idRequest.getId() <= 0) {
+            throw new BusinessException(ErrorCode.PARAMS_ERROR);
+        }
+        long id = idRequest.getId();
+        // 判断是否存在
+        InterfaceInfo oldInterfaceInfo = interfaceInfoService.getById(id);
+        if (oldInterfaceInfo == null) {
+            throw new BusinessException(ErrorCode.NOT_FOUND_ERROR);
+        }
+        // 判断该接口是否可以调用
+        com.gali.api.model.User user = new com.gali.api.model.User();
+        user.setUsername("test");
+        String username = galiApiClient.getUsernameByPost(user);
+        if (StringUtils.isBlank(username)) {
+            throw new BusinessException(ErrorCode.SYSTEM_ERROR, "接口验证失败");
+        }
+        // 仅本人或管理员可修改
+        InterfaceInfo interfaceInfo = new InterfaceInfo();
+        interfaceInfo.setId(id);
+        interfaceInfo.setStatus(InterfaceInfoStatusEnum.ONLINE.getValue());
+        boolean result = interfaceInfoService.updateById(interfaceInfo);
+        return ResultUtils.success(result);
+    }
+
+    /**
+     * 下线
+     *
+     * @param idRequest
+     * @param request
+     * @return
+     */
+    @PostMapping("/offline")
+    @AuthCheck(mustRole = "admin")
+    public BaseResponse<Boolean> offlineInterfaceInfo(@RequestBody IdRequest idRequest,
+                                                      HttpServletRequest request) {
+        if (idRequest == null || idRequest.getId() <= 0) {
+            throw new BusinessException(ErrorCode.PARAMS_ERROR);
+        }
+        long id = idRequest.getId();
+        // 判断是否存在
+        InterfaceInfo oldInterfaceInfo = interfaceInfoService.getById(id);
+        if (oldInterfaceInfo == null) {
+            throw new BusinessException(ErrorCode.NOT_FOUND_ERROR);
+        }
+        // 仅本人或管理员可修改
+        InterfaceInfo interfaceInfo = new InterfaceInfo();
+        interfaceInfo.setId(id);
+        interfaceInfo.setStatus(InterfaceInfoStatusEnum.OFFLINE.getValue());
+        boolean result = interfaceInfoService.updateById(interfaceInfo);
+        return ResultUtils.success(result);
+    }
 
 }
