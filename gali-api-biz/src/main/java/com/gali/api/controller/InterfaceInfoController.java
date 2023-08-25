@@ -10,15 +10,13 @@ import com.gali.api.common.ErrorCode;
 import com.gali.api.common.ResultUtils;
 import com.gali.api.constant.CommonConstant;
 import com.gali.api.exception.BusinessException;
-import com.gali.api.model.dto.interfaceInfo.IdRequest;
-import com.gali.api.model.dto.interfaceInfo.InterfaceInfoAddRequest;
-import com.gali.api.model.dto.interfaceInfo.InterfaceInfoQueryRequest;
-import com.gali.api.model.dto.interfaceInfo.InterfaceInfoUpdateRequest;
+import com.gali.api.model.dto.interfaceInfo.*;
 import com.gali.api.model.entity.InterfaceInfo;
 import com.gali.api.model.entity.User;
 import com.gali.api.model.enums.InterfaceInfoStatusEnum;
 import com.gali.api.service.InterfaceInfoService;
 import com.gali.api.service.UserService;
+import com.google.gson.Gson;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.BeanUtils;
@@ -263,5 +261,40 @@ public class InterfaceInfoController {
         boolean result = interfaceInfoService.updateById(interfaceInfo);
         return ResultUtils.success(result);
     }
+
+
+    /**
+     * 测试调用
+     *
+     * @param interfaceInfoInvokeRequest
+     * @param request
+     * @return
+     */
+    @PostMapping("/invoke")
+    public BaseResponse<Object> invokeInterfaceInfo(@RequestBody InterfaceInfoInvokeRequest interfaceInfoInvokeRequest,
+                                                    HttpServletRequest request) {
+        if (interfaceInfoInvokeRequest == null || interfaceInfoInvokeRequest.getId() <= 0) {
+            throw new BusinessException(ErrorCode.PARAMS_ERROR);
+        }
+        long id = interfaceInfoInvokeRequest.getId();
+        String userRequestParams = interfaceInfoInvokeRequest.getUserRequestParams();
+        // 判断是否存在
+        InterfaceInfo oldInterfaceInfo = interfaceInfoService.getById(id);
+        if (oldInterfaceInfo == null) {
+            throw new BusinessException(ErrorCode.NOT_FOUND_ERROR);
+        }
+        if (oldInterfaceInfo.getStatus() != InterfaceInfoStatusEnum.ONLINE.getValue()) {
+            throw new BusinessException(ErrorCode.PARAMS_ERROR, "接口未上线");
+        }
+        User loginUser = userService.getLoginUser(request);
+        String accessKey = loginUser.getAccessKey();
+        String secretKey = loginUser.getSecretKey();
+        GaliApiClient tempClient = new GaliApiClient(accessKey, secretKey);
+        Gson gson = new Gson();
+        com.gali.api.model.User user = gson.fromJson(userRequestParams, com.gali.api.model.User.class);
+        String usernameByPost = tempClient.getUsernameByPost(user);
+        return ResultUtils.success(usernameByPost);
+    }
+
 
 }
