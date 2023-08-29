@@ -1,0 +1,26 @@
+server:
+  port: 9000
+
+spring:
+  cloud:
+    gateway:
+      routes:
+        #        - id: after_route
+        #          uri: https://www.baidu.com
+        #          predicates:
+        #            - After=2023-01-20T17:42:47.789-07:00[America/Denver]
+        - id: path_route
+          uri: https://www.mi.com
+          predicates:
+            - Path=/api/**
+        - id: iphone_route
+          uri: https://www.apple.com.cn/
+          predicates:
+            - Path=/iphone/**
+
+logging:
+  level:
+    org:
+      springframework:
+        cloud:
+          gateway: trace1
