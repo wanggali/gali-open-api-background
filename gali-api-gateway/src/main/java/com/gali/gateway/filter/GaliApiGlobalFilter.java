@@ -1,8 +1,13 @@
 package com.gali.gateway.filter;
 
-import com.gali.api.model.User;
-import com.gali.api.util.SignUtil;
+import com.gali.api.sdk.util.SignUtil;
+import com.gali.common.model.entity.InterfaceInfo;
+import com.gali.common.model.entity.User;
+import com.gali.common.service.InnerInterfaceInfoService;
+import com.gali.common.service.InnerUserInterfaceInfoService;
+import com.gali.common.service.InnerUserService;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.dubbo.config.annotation.DubboReference;
 import org.reactivestreams.Publisher;
 import org.springframework.cloud.gateway.filter.GatewayFilterChain;
 import org.springframework.cloud.gateway.filter.GlobalFilter;
@@ -37,6 +42,15 @@ public class GaliApiGlobalFilter implements Ordered, GlobalFilter {
     private static final String INTERFACE_HOST = "http://localhost:8888";
 
     public static final Set<String> IP_WHITE_SET = new HashSet<>(Collections.singletonList("127.0.0.1"));
+
+    @DubboReference
+    private InnerInterfaceInfoService innerInterfaceInfoService;
+
+    @DubboReference
+    private InnerUserService innerUserService;
+
+    @DubboReference
+    private InnerUserInterfaceInfoService innerUserInterfaceInfoService;
 
     /**
      * 全局过滤

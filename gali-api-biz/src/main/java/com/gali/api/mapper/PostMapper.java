@@ -1,7 +1,7 @@
 package com.gali.api.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
-import com.gali.api.model.entity.Post;
+import com.gali.common.model.entity.Post;
 
 /**
 * @author galili

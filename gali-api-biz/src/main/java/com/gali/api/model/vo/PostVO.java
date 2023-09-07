@@ -1,6 +1,6 @@
 package com.gali.api.model.vo;
 
-import com.gali.api.model.entity.Post;
+import com.gali.common.model.entity.Post;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 

@@ -1,7 +1,7 @@
 package com.gali.api.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
-import com.gali.api.model.entity.Post;
+import com.gali.common.model.entity.Post;
 
 /**
  * @author galili

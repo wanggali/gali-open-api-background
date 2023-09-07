@@ -1,4 +1,4 @@
-package com.gali.api.util;
+package com.gali.api.sdk.util;
 
 import cn.hutool.crypto.digest.DigestAlgorithm;
 import cn.hutool.crypto.digest.Digester;

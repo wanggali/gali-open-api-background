@@ -1,6 +1,6 @@
 package com.gali.api.service;
 
-import com.gali.api.model.entity.UserInterfaceInfo;
+import com.gali.common.model.entity.UserInterfaceInfo;
 import com.baomidou.mybatisplus.extension.service.IService;
 
 /**

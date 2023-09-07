@@ -1,6 +1,6 @@
-package com.gali.api;
+package com.gali.api.sdk;
 
-import com.gali.api.client.GaliApiClient;
+import com.gali.api.sdk.client.GaliApiClient;
 import lombok.Data;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Bean;

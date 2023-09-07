@@ -1,12 +1,12 @@
-package com.gali.api.client;
+package com.gali.api.sdk.client;
 
 import cn.hutool.core.util.RandomUtil;
 import cn.hutool.http.HttpRequest;
 import cn.hutool.http.HttpResponse;
 import cn.hutool.http.HttpUtil;
 import cn.hutool.json.JSONUtil;
-import com.gali.api.model.User;
-import com.gali.api.util.SignUtil;
+import com.gali.api.sdk.util.SignUtil;
+import com.gali.common.model.entity.User;
 
 import java.util.HashMap;
 import java.util.Map;

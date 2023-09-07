@@ -1,6 +1,6 @@
 package com.gali.api.mapper;
 
-import com.gali.api.model.entity.InterfaceInfo;
+import com.gali.common.model.entity.InterfaceInfo;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 
 /**

@@ -1,9 +1,9 @@
 package com.gali.api.service.impl;
 
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import com.gali.api.model.entity.Post;
-import com.gali.api.common.ErrorCode;
 import com.gali.api.exception.BusinessException;
+import com.gali.common.model.entity.Post;
+import com.gali.api.common.ErrorCode;
 import com.gali.api.mapper.PostMapper;
 import com.gali.api.model.enums.PostGenderEnum;
 import com.gali.api.model.enums.PostReviewStatusEnum;

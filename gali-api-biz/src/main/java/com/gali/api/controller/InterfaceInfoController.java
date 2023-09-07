@@ -3,7 +3,6 @@ package com.gali.api.controller;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.gali.api.annotation.AuthCheck;
-import com.gali.api.client.GaliApiClient;
 import com.gali.api.common.BaseResponse;
 import com.gali.api.common.DeleteRequest;
 import com.gali.api.common.ErrorCode;
@@ -11,11 +10,12 @@ import com.gali.api.common.ResultUtils;
 import com.gali.api.constant.CommonConstant;
 import com.gali.api.exception.BusinessException;
 import com.gali.api.model.dto.interfaceInfo.*;
-import com.gali.api.model.entity.InterfaceInfo;
-import com.gali.api.model.entity.User;
 import com.gali.api.model.enums.InterfaceInfoStatusEnum;
+import com.gali.api.sdk.client.GaliApiClient;
 import com.gali.api.service.InterfaceInfoService;
 import com.gali.api.service.UserService;
+import com.gali.common.model.entity.InterfaceInfo;
+import com.gali.common.model.entity.User;
 import com.google.gson.Gson;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
@@ -220,8 +220,8 @@ public class InterfaceInfoController {
             throw new BusinessException(ErrorCode.NOT_FOUND_ERROR);
         }
         // 判断该接口是否可以调用
-        com.gali.api.model.User user = new com.gali.api.model.User();
-        user.setUsername("test");
+        User user = new User();
+        user.setUserName("test");
         String username = galiApiClient.getUsernameByPost(user);
         if (StringUtils.isBlank(username)) {
             throw new BusinessException(ErrorCode.SYSTEM_ERROR, "接口验证失败");
@@ -291,7 +291,7 @@ public class InterfaceInfoController {
         String secretKey = loginUser.getSecretKey();
         GaliApiClient tempClient = new GaliApiClient(accessKey, secretKey);
         Gson gson = new Gson();
-        com.gali.api.model.User user = gson.fromJson(userRequestParams, com.gali.api.model.User.class);
+        User user = gson.fromJson(userRequestParams, User.class);
         String usernameByPost = tempClient.getUsernameByPost(user);
         return ResultUtils.success(usernameByPost);
     }

@@ -1,21 +1,20 @@
 package com.gali.api.controller;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
-import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.gali.api.annotation.AuthCheck;
 import com.gali.api.common.BaseResponse;
 import com.gali.api.common.DeleteRequest;
 import com.gali.api.common.ErrorCode;
 import com.gali.api.common.ResultUtils;
+import com.gali.api.model.dto.userinterfaceinfo.UserInterfaceInfoAddRequest;
+import com.gali.api.model.dto.userinterfaceinfo.UserInterfaceInfoUpdateRequest;
 import com.gali.api.constant.CommonConstant;
 import com.gali.api.constant.UserConstant;
 import com.gali.api.exception.BusinessException;
-import com.gali.api.model.dto.userinterfaceinfo.UserInterfaceInfoAddRequest;
 import com.gali.api.model.dto.userinterfaceinfo.UserInterfaceInfoQueryRequest;
-import com.gali.api.model.dto.userinterfaceinfo.UserInterfaceInfoUpdateRequest;
-import com.gali.api.model.entity.User;
-import com.gali.api.model.entity.UserInterfaceInfo;
+import com.gali.common.model.entity.User;
+import com.gali.common.model.entity.UserInterfaceInfo;
 import com.gali.api.service.UserInterfaceInfoService;
 import com.gali.api.service.UserService;
 import lombok.extern.slf4j.Slf4j;

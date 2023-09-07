@@ -2,7 +2,7 @@ package com.gali.api.service;
 
 
 import com.baomidou.mybatisplus.extension.service.IService;
-import com.gali.api.model.entity.User;
+import com.gali.common.model.entity.User;
 
 import javax.servlet.http.HttpServletRequest;
 

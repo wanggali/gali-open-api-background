@@ -4,7 +4,7 @@ import com.baomidou.mybatisplus.core.toolkit.CollectionUtils;
 import com.gali.api.annotation.AuthCheck;
 import com.gali.api.common.ErrorCode;
 import com.gali.api.exception.BusinessException;
-import com.gali.api.model.entity.User;
+import com.gali.common.model.entity.User;
 import com.gali.api.service.UserService;
 import org.apache.commons.lang3.StringUtils;
 import org.aspectj.lang.ProceedingJoinPoint;

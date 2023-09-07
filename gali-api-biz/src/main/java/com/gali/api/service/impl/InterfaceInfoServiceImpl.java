@@ -3,10 +3,9 @@ package com.gali.api.service.impl;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.gali.api.common.ErrorCode;
 import com.gali.api.exception.BusinessException;
-import com.gali.api.model.entity.InterfaceInfo;
+import com.gali.common.model.entity.InterfaceInfo;
 import com.gali.api.service.InterfaceInfoService;
 import com.gali.api.mapper.InterfaceInfoMapper;
-import org.apache.commons.lang3.ObjectUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
 
