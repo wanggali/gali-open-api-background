@@ -1,6 +1,8 @@
 spring:
   application:
     name: gali-api-biz
+  profiles:
+    active: dev
   # DataSource Config
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
@@ -36,7 +38,7 @@ mybatis-plus:
 
 dubbo:
   application:
-    name: dubbo-springboot-demo-provider
+    name: gali-api-biz
   protocol:
     name: dubbo
     port: -1
