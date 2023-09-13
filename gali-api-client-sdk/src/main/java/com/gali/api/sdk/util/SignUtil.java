@@ -17,7 +17,7 @@ public class SignUtil {
      * @return
      */
     public static String genSign(String body, String secretKey) {
-        Digester md5 = new Digester(DigestAlgorithm.SHA256);
+        Digester md5 = new Digester(DigestAlgorithm.MD5);
         String content = body + "." + secretKey;
         return md5.digestHex(content);
     }
