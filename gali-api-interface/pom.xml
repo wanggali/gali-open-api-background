@@ -46,9 +46,9 @@
         </dependency>
 
         <dependency>
-            <groupId>com.gali.api</groupId>
+            <groupId>io.github.wanggali</groupId>
             <artifactId>gali-api-client-sdk</artifactId>
-            <version>0.0.1</version>
+            <version>0.0.1-SNAPSHOT</version>
         </dependency>
     </dependencies>
 

@@ -10,7 +10,7 @@
     </parent>
     <groupId>io.github.wanggali</groupId>
     <artifactId>gali-api-client-sdk</artifactId>
-    <version>0.0.1-RELEASE</version>
+    <version>0.0.1-SNAPSHOT</version>
     <name>gali-api-client-sdk</name>
     <url>https://github.com/wanggali/gali-open-api-background</url>
     <description>gali-api-client-sdk</description>
@@ -57,7 +57,7 @@
     </dependencies>
 
 
-<!--    添加distributionManagement信息，声明要打包到sonatype的maven仓库中去。-->
+    <!--    添加distributionManagement信息，声明要打包到sonatype的maven仓库中去。-->
     <distributionManagement>
         <snapshotRepository>
             <id>ossrh</id>
@@ -163,7 +163,7 @@
     </build>
 
 
-<!--    证书-->
+    <!--    证书-->
     <licenses>
         <license>
             <name>The Apache Software License, Version 2.0</name>
@@ -173,7 +173,7 @@
     </licenses>
 
 
-<!--    项目地址-->
+    <!--    项目地址-->
     <scm>
         <url>
             https://github.com/wanggali/gali-open-api-background
@@ -187,7 +187,7 @@
     </scm>
 
 
-<!--    联系人-->
+    <!--    联系人-->
     <developers>
         <developer>
             <name>wanggali</name>
@@ -197,4 +197,38 @@
         </developer>
     </developers>
 
+    <profiles>
+        <profile>
+            <id>release</id>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.sonatype.plugins</groupId>
+                        <artifactId>nexus-staging-maven-plugin</artifactId>
+                        <version>1.6.7</version>
+                        <extensions>true</extensions>
+                        <configuration>
+                            <serverId>sonatype-nexus-staging</serverId>
+                            <nexusUrl>https://s01.oss.sonatype.org/</nexusUrl>
+                            <autoReleaseAfterClose>true</autoReleaseAfterClose>
+                        </configuration>
+                    </plugin>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-gpg-plugin</artifactId>
+                        <version>1.5</version>
+                        <executions>
+                            <execution>
+                                <id>sign-artifacts</id>
+                                <phase>verify</phase>
+                                <goals>
+                                    <goal>sign</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+    </profiles>
 </project>
