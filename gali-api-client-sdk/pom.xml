@@ -10,7 +10,7 @@
     </parent>
     <groupId>io.github.wanggali</groupId>
     <artifactId>gali-api-client-sdk</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
+    <version>0.0.1-RELEASE</version>
     <name>gali-api-client-sdk</name>
     <url>https://github.com/wanggali/gali-open-api-background</url>
     <description>gali-api-client-sdk</description>
@@ -223,6 +223,21 @@
                                 <phase>verify</phase>
                                 <goals>
                                     <goal>sign</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                    </plugin>
+
+                    <!-- Source -->
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-source-plugin</artifactId>
+                        <version>2.2.1</version>
+                        <executions>
+                            <execution>
+                                <phase>package</phase>
+                                <goals>
+                                    <goal>jar-no-fork</goal>
                                 </goals>
                             </execution>
                         </executions>
